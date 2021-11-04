@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+
+        function onclickFun(){
+            var usernameObj = document.getElementById("username");
+            var usernameText = usernameObj.value;
+            var patt = /^\w{5,12}$/;
+            var usernameSpanObj = document.getElementById("usernameSpan");
+
+
+            if(patt.test(usernameText)){
+                // alert("用户名合法");
+                usernameSpanObj.innerHTML = "<img src=\"right.png\" height=\"18\" width=\"18\">";
+            }else {
+                // alert("用户名不合法");
+                usernameSpanObj.innerHTML = "<img src=\"wrong.png\" height=\"18\" width=\"18\">";
+            }
+        }
+
+    </script>
+
+
+</head>
+<body>
+    用户名：<input type="text" id="username"/>
+    <span id="usernameSpan" style="color: red">
+
+    </span>
+    <button onclick="onclickFun()">校验</button>
+
+</body>
+</html>

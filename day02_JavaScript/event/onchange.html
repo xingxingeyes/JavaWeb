@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+        function onchangeFun(){
+            alert("女生已经改变了")
+        }
+
+        window.onload = function (){
+            var selObj = document.getElementById("selObj");
+            selObj.onchange = function (){
+                alert("男生已经改变了");
+            }
+
+        }
+
+    </script>
+</head>
+<body>
+
+    <select onchange="onchangeFun()">
+        <option>小芳</option>
+        <option>阿花</option>
+        <option>小红</option>
+        <option>翠花</option>
+    </select>
+
+    <select id="selObj">
+        <option>德华</option>
+        <option>福成</option>
+        <option>国仔</option>
+        <option>小王</option>
+    </select>
+
+</body>
+</html>

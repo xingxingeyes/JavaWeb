@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+        window.onload = function (){
+            var divObj = document.createElement("div"); // 在内存中
+
+            var textNodeObj = document.createTextNode("哔哩哔哩");
+
+            divObj.appendChild(textNodeObj); // <div>哔哩哔哩<div> 还在内存中
+
+            // divObj.innerHTML = "哔哩哔哩"; // <div>哔哩哔哩<div> 还在内存中
+            document.body.appendChild(divObj);
+        }
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

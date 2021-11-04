@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+        //js中所有变量都可以作为Boolean类型使用，0、undefined、NaN、""（空串不能有空格）都为假
+
+        //&&运算
+        //第一种：全为真返回最后一个表达式的值
+        //第二种：有一个为假返回第一个为假的表达式的值
+        var a = "abc";
+        var b = true;
+        var c = false;
+        var d = null;
+        var e = NaN;
+        var f = "";
+        // alert(a && b);// true
+        // alert(b && a);// abc
+        // alert(a && c);// false
+        // alert(d && c);// null
+        // alert(b && f);// ""
+
+    /*  // 或运算
+        第一种：全为假时返回最后一个表达式的值
+        第二种：有一个为真返回第一个为真表达式的值
+    */
+
+        var a = "abc";
+        var b = true;
+        var c = false;
+        var d = null;
+        var e = NaN;
+        var f = "";
+
+        alert(d || e);// NaN
+        alert(f || a);// "abc"
+
+
+
+
+    </script>
+
+
+</head>
+<body>
+
+</body>
+</html>
