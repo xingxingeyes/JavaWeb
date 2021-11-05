@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="script/jquery-1.7.2.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            // alert($(":checkbox:first").attr("name")); // 获取
+            // $(":checkbox:first").attr("name","abc"); // 设置
+
+            // alert($(":checkbox").attr("checked")); // 官方觉得返回undefined是个错误 不推荐用 undefined、readonly、disabled等等
+            // alert($(":checkbox").prop("checked")); // 返回true false 只推荐操作 undefined、readonly、disabled等等
+
+            $(":checkbox:first").attr("abc", "abcValue");
+            alert($(":checkbox").first().attr("abc"));
+
+        });
+
+
+    </script>
+
+
+</head>
+<body>
+    多选:
+<!--    <input type="checkbox" name="checkbox" value="checkbox1" checked="checked">checkbox1-->
+    <input type="checkbox" name="checkbox" value="checkbox2">checkbox2
+    <input type="checkbox" name="checkbox" value="checkbox3">checkbox3
+    <br/>
+
+
+
+</body>
+</html>

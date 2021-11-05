@@ -7,8 +7,42 @@
 <script type="text/javascript">
 	
 	$(function(){
-		
-		
+
+
+		//给全选按钮绑上单击事件
+		$("#checkedAllBtn").click(function () {
+			$(":checkbox").attr("checked",true);
+		});
+		//给全不选按钮绑上单击事件
+		$("#checkedNoBtn").click(function () {
+			$(":checkbox").attr("checked",false);
+		});
+		// 全选
+		$("#checkedAllBox").click(function () {
+			$(":checkbox[name='items']").attr("checked",this.checked);
+		});
+		// 勾选任意爱好，全选框并跟随变化
+		$(":checkbox[name='items']").click(function () {
+			var bool = $(":checkbox[name='items']:checked").length == $(":checkbox[name='items']").length;
+			$("#checkedAllBox").attr("checked", bool);
+		});
+		// 反选
+		$("#checkedRevBtn").click(function () {
+			$(":checkbox[name='items']").each(function () {
+				this.checked = !this.checked;
+			});
+			var bool = $(":checkbox[name='items']:checked").length == $(":checkbox[name='items']").length;
+			$("#checkedAllBox").attr("checked", bool);
+
+		});
+		// 提交
+		$("#sendBtn").click(function () {
+			$(":checkbox[name='items']:checked").each(function () {
+				alert(this.value);
+			});
+		});
+
+
 	});
 	
 </script>
