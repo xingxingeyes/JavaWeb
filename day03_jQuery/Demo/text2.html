@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="script/jquery-1.7.2.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+
+            // $(":radio").val(["radio2"]);
+            // $(":checkbox").val(["checkbox1", "checkbox3"]);
+            // $("#multiple").val(["nul1", "nul4"]);
+            // $("#single").val(["nul2"]);
+
+            $(":radio,:checkbox,#multiple,#single").val(["radio2", "checkbox1", "checkbox3", "nul1", "nul4", "nul2"]);
+
+        });
+
+
+    </script>
+
+
+</head>
+<body>
+    单选：
+    <input type="radio" name="radio" value="radio1"/>
+    <input type="radio" name="radio" value="radio2"/><br/>
+    多选:
+    <input type="checkbox" name="checkbox" value="checkbox1">checkbox1
+    <input type="checkbox" name="checkbox" value="checkbox2">checkbox2
+    <input type="checkbox" name="checkbox" value="checkbox3">checkbox3
+    <br/>
+
+    下拉选项：
+    <select id="multiple" multiple="multiple" size="4">
+        <option value="nul1">mul1</option>
+        <option value="nul2">mul2</option>
+        <option value="nul3">mul3</option>
+        <option value="nul4">mul4</option>
+    </select>
+    <br/>
+    下拉单选：
+    <select id="single">
+        <option value="nul1">mul1</option>
+        <option value="nul2">mul2</option>
+        <option value="nul3">mul3</option>
+        <option value="nul4">mul4</option>
+    </select>
+
+
+
+</body>
+</html>
