@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="./script/jquery-1.7.2.js"></script>
+    <script type="text/javascript">
+
+        // $(":header").appendTo($("div"));
+        $(function () {
+            // 把a插入到b子元素的末尾，成为最后一个元素
+            // $("<h1>标题</h1>").appendTo("div");
+            // 把a插入到b所有元素的前面，成为第一个元素
+            // $("<h1>标题</h1>").prependTo("div");
+
+            // 外部插入
+            // $("<h1>标题</h1>").insertAfter("div"); //两个标签平级 h1在div之后
+            // $("<h1>标题</h1>").insertBefore("div"); // 两个标签平级 h1在div之前
+
+            // 替换
+            // $("div").replaceWith($("<h1>标题</h1>"));// 用b替换掉a
+            // $($("<h1>标题</h1>").replaceAll("div"));// 用a替换掉所有的b
+
+            // 删除
+            // $("div").remove(); // 删除a标签
+            $("div").empty(); // 清空a标签里的内容
+        });
+
+
+
+    </script>
+
+
+
+
+</head>
+<body>
+
+    <div>1234</div>
+
+</body>
+</html>
