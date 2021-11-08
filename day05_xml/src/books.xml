@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<books>
+    <book sn="SN234354">
+        <name>时间简史</name> <!--sn表示图书序列号 -->
+        <author>霍金</author>
+        <price>75</price>
+    </book>
+    <book sn="SN2378954">
+        <name>月亮与六便士</name> <!--sn表示图书序列号 -->
+        <author>  <!-- <![CDATA[]]>  CDATA 语法可以告诉 xml 解析器，我 CDATA 里的文本内容，只是纯文本，不需要 xml 语法解析 -->
+            <![CDATA[
+                <<<<<<<毛姆
+            ]]>
+
+        </author>
+        <price>50</price>
+    </book>
+</books>
