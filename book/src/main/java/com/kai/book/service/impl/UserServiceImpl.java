@@ -10,7 +10,7 @@ import com.kai.book.service.UserService;
  * @author: kai.lv
  * @date: 2021/11/10
  **/
-public class userServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
     UserDao userdao = new UserDaoImpl();
     @Override
     public void registUser(User user) {

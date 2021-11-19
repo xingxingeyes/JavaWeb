@@ -1,10 +1,8 @@
 package com.kai.book.service;
 
 import com.kai.book.pojo.User;
-import com.kai.book.service.impl.userServiceImpl;
+import com.kai.book.service.impl.UserServiceImpl;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * @description:
@@ -12,7 +10,7 @@ import static org.junit.Assert.*;
  * @date: 2021/11/10
  **/
 public class UserServiceTest {
-    UserService userService = new userServiceImpl();
+    UserService userService = new UserServiceImpl();
 
     @Test
     public void registUser() {
