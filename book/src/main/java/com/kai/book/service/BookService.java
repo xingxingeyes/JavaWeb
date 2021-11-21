@@ -1,6 +1,7 @@
 package com.kai.book.service;
 
 import com.kai.book.pojo.Book;
+import com.kai.book.pojo.Page;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface BookService {
 
     public List<Book> queryBooks();
 
+    public Page page(int pageNo, int pageSize);
 
-
-
+    Page<Book> pageByPrice(int pageNo, int pageSize, int min, int max);
 }

@@ -2,9 +2,11 @@ package com.kai.book.dao;
 
 import com.kai.book.dao.impl.BookDaoImpl;
 import com.kai.book.pojo.Book;
+import com.kai.book.pojo.Page;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -41,4 +43,29 @@ public class BookDaoTest {
             System.out.println(book);
         });
     }
+    @Test
+    public void queryForPageTotalCount() {
+        System.out.println(bookDao.queryForPageTotalCount());
+    }
+    @Test
+    public void queryForPageItems(){
+        bookDao.queryForPageItems(8,4).forEach(book -> {
+            System.out.println(book);
+        });
+    }
+
+    @Test
+    public void queryForPageTotalCountByPrice(){
+        System.out.println(bookDao.queryForPageTotalCountByPrice(10, 50));
+    }
+
+    @Test
+    public void queryForPageItemsByPrice(){
+        bookDao.queryForPageItemsByPrice(0, Page.PAGE_SIZE,10,50).forEach(book -> {
+            System.out.println(book);
+        });
+    }
+
+
+
 }

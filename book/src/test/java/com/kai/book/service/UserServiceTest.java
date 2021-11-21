@@ -1,5 +1,6 @@
 package com.kai.book.service;
 
+import com.kai.book.pojo.Page;
 import com.kai.book.pojo.User;
 import com.kai.book.service.impl.UserServiceImpl;
 import org.junit.Test;
@@ -26,4 +27,5 @@ public class UserServiceTest {
     public void existsUsername() {
         System.out.println(userService.existsUsername("眼镜"));
     }
+
 }

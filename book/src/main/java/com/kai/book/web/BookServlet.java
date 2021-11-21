@@ -1,6 +1,7 @@
 package com.kai.book.web;
 
 import com.kai.book.pojo.Book;
+import com.kai.book.pojo.Page;
 import com.kai.book.service.BookService;
 import com.kai.book.service.impl.BookServiceImpl;
 import com.kai.book.utils.WebUtils;
@@ -26,6 +27,9 @@ public class BookServlet extends BaseServlet {
     private BookService bookService = new BookServiceImpl();
 
     protected void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int pageNo = WebUtils.parseInt(request.getParameter("pageNo"), 0);
+        pageNo+=1;
+
         //  1. 获取请求参数==封装成book对象
         Book book = WebUtils.copyParamToBean(request.getParameterMap(), new Book());
         //  2.调用BookService.addBook()保存图书
@@ -49,7 +53,7 @@ public class BookServlet extends BaseServlet {
          *             request.getRemoteHost() 获取客户端的ip地址
          *             session.getId() 获取回话的唯一标识
          */
-        response.sendRedirect(request.getContextPath()+"/manager/bookServlet?action=list");
+        response.sendRedirect(request.getContextPath()+"/manager/bookServlet?action=page&pageNo="+pageNo);
 
     }
 
@@ -59,7 +63,7 @@ public class BookServlet extends BaseServlet {
         // 2.调用bookService.deleteBookById();删除图书
         bookService.deleteBookById(id);
         // 3.重定向会图书列表管理页面
-        response.sendRedirect(request.getContextPath()+"/manager/bookServlet?action=list");
+        response.sendRedirect(request.getContextPath()+"/manager/bookServlet?action=page&pageNo="+request.getParameter("pageNo"));
     }
 
     protected void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -69,7 +73,7 @@ public class BookServlet extends BaseServlet {
         bookService.updateBook(book);
         // 3.重定向到图书列表页面
         //    地址：request.getContextPath()+ /工程名/manager/bookServlet?action=list
-        response.sendRedirect(request.getContextPath()+"/manager/bookServlet?action=list");
+        response.sendRedirect(request.getContextPath()+"/manager/bookServlet?action=page&pageNo="+request.getParameter("pageNo"));
 
     }
     protected void getBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -92,4 +96,30 @@ public class BookServlet extends BaseServlet {
         request.getRequestDispatcher("/pages/manager/book_manager.jsp").forward(request, response);
 
     }
+
+    /**
+     * 处理分页业务
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void page(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 1.获取请求参数 pageNo 和 pageSize
+        int pageNo = WebUtils.parseInt(request.getParameter("pageNo"), 1);
+        int pageSize = WebUtils.parseInt(request.getParameter("pageSize"), Page.PAGE_SIZE);
+        // 2.调用BookService.page(pageNo, pageSize): Page对象
+        Page<Book> page = bookService.page(pageNo, pageSize);
+        page.setUrl("manager/bookServlet?action=page");
+        // 3.保存Page对象到Request域中
+        request.setAttribute("page", page);
+        // 4.请求转发到 page/manager/book_manager.jsp页面
+        request.getRequestDispatcher("/pages/manager/book_manager.jsp").forward(request,response);
+    }
+
+
+
+
+
+
 }

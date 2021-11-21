@@ -3,84 +3,84 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>图书管理</title>
-	<%-- 静态包含 base标签，css样式，JQuery文件--%>
-	<%@include file="/pages/common/head.jsp"%>
-	<script type="text/javascript">
-		$(function () {
-			// 给删除的a标签绑定单击事件，用于删除的确认提示操作
-			$("a.deleteClass").click(function () {
-				// 在事件的function函数中，有一个this对象。这个this对象，是当前正在响应事件的dom对象
-				/**
-				 * confirm是确认提示框函数
-				 * 参数是它的提示内容
-				 * 它有两个按钮一个是确认，一个是取消
-				 * 返回ture表示点击了确认，返回false表示点击了取消
-				 */
-				return confirm("你确认删除【"+$(this).parent().parent().find("td:first").text()+"】？");
+    <meta charset="UTF-8">
+    <title>图书管理</title>
+    <%-- 静态包含 base标签，css样式，JQuery文件--%>
+    <%@include file="/pages/common/head.jsp" %>
+    <script type="text/javascript">
+        $(function () {
+            // 给删除的a标签绑定单击事件，用于删除的确认提示操作
+            $("a.deleteClass").click(function () {
+                // 在事件的function函数中，有一个this对象。这个this对象，是当前正在响应事件的dom对象
+                /**
+                 * confirm是确认提示框函数
+                 * 参数是它的提示内容
+                 * 它有两个按钮一个是确认，一个是取消
+                 * 返回ture表示点击了确认，返回false表示点击了取消
+                 */
+                return confirm("你确认删除【" + $(this).parent().parent().find("td:first").text() + "】？");
 
 
-			});
-		});
+            });
+        });
 
 
-
-
-	</script>
+    </script>
 
 </head>
 <body>
-	
-	<div id="header">
-			<img class="logo_img" alt="" src="../../static/img/logo.gif" >
-			<span class="wel_word">图书管理系统</span>
-		<%-- 静态包含 登录成功之后的菜单--%>
-		<%@include file="/pages/common/login_success_menu.jsp"%>
-	</div>
-	
-	<div id="main">
-		<table>
-			<tr>
-				<td>名称</td>
-				<td>价格</td>
-				<td>作者</td>
-				<td>销量</td>
-				<td>库存</td>
-				<td colspan="2">操作</td>
-			</tr>
 
-			<c:forEach items="${requestScope.books}" var="book">
+<div id="header">
+    <img class="logo_img" alt="" src="../../static/img/logo.gif">
+    <span class="wel_word">图书管理系统</span>
+    <%-- 静态包含 登录成功之后的菜单--%>
+    <%@include file="/pages/common/login_success_menu.jsp" %>
+</div>
 
-				<tr>
-					<td>${book.name}</td>
-					<td>${book.price}</td>
-					<td>${book.author}</td>
-					<td>${book.sales}</td>
-					<td>${book.stock}</td>
-					<td><a href="manager/bookServlet?action=getBook&id=${book.id}&method=update">修改</a></td>
-					<td><a class="deleteClass" href="manager/bookServlet?action=delete&id=${book.id}">删除</a></td>
-				</tr>
+<div id="main">
+    <table>
+        <tr>
+            <td>名称</td>
+            <td>价格</td>
+            <td>作者</td>
+            <td>销量</td>
+            <td>库存</td>
+            <td colspan="2">操作</td>
+        </tr>
+
+        <c:forEach items="${requestScope.page.items}" var="book">
+
+            <tr>
+                <td>${book.name}</td>
+                <td>${book.price}</td>
+                <td>${book.author}</td>
+                <td>${book.sales}</td>
+                <td>${book.stock}</td>
+                <td>
+                    <a href="manager/bookServlet?action=getBook&id=${book.id}&method=update&pageNo=${requestScope.page.pageNo}">修改</a>
+                </td>
+                <td><a class="deleteClass"
+                       href="manager/bookServlet?action=delete&id=${book.id}&pageNo=${requestScope.page.pageNo}">删除</a>
+                </td>
+            </tr>
 
 
-			</c:forEach>
+        </c:forEach>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><a href="pages/manager/book_edit.jsp?method=add&pageNo=${requestScope.page.pageTotal}">添加图书</a></td>
+        </tr>
+    </table>
+    <%-- 静态包含分页条--%>
+    <%@include file="/pages/common/page_nav.jsp" %>
+</div>
 
-			
-
-			
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td><a href="pages/manager/book_edit.jsp?method=add">添加图书</a></td>
-			</tr>	
-		</table>
-	</div>
-
-	<%-- 静态包含页脚内容 --%>
-	<%@include file="/pages/common/footer.jsp"%>
+<%-- 静态包含页脚内容 --%>
+<%@include file="/pages/common/footer.jsp" %>
 </body>
 </html>

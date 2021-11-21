@@ -1,7 +1,9 @@
-package com.kai.book.service.impl;
+package com.kai.book.service;
 
 import com.kai.book.pojo.Book;
+import com.kai.book.pojo.Page;
 import com.kai.book.service.BookService;
+import com.kai.book.service.impl.BookServiceImpl;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -13,7 +15,7 @@ import static org.junit.Assert.*;
  * @author: kai.lv
  * @date: 2021/11/18
  **/
-public class BookServiceImplTest {
+public class BookServiceTest {
 
     BookService bookService = new BookServiceImpl();
     @Test
@@ -41,5 +43,14 @@ public class BookServiceImplTest {
         bookService.queryBooks().forEach(book -> {
             System.out.println(book);
         });
+    }
+
+    @Test
+    public void page() {
+        System.out.println(bookService.page(1, Page.PAGE_SIZE));
+    }
+    @Test
+    public void pageByPrice() {
+        System.out.println(bookService.pageByPrice(1, Page.PAGE_SIZE, 10, 50));
     }
 }
