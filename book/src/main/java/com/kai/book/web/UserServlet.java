@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
+
 /**
  * @description:
  * @author: kai.lv
@@ -29,24 +31,44 @@ public class UserServlet extends BaseServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        if (userService.login(new User(username, password, "")) == null) {
+        User loginUser = userService.login(new User(username, password, ""));
+        if (loginUser == null) {
             // 把错误的信息和回显的表单信息保存到Request域中
-            request.setAttribute("msg","用户名或密码错误");
-            request.setAttribute("username",username);
+            request.setAttribute("msg", "用户名或密码错误");
+            request.setAttribute("username", username);
 
             // 登陆失败，跳转登录页面
             request.getRequestDispatcher("/pages/user/login.jsp").forward(request, response);
         } else {
+            request.getSession().setAttribute("user", loginUser);
             // 登陆成功
             request.getRequestDispatcher("/pages/user/login_success.jsp").forward(request, response);
         }
     }
+
+    /**
+     * 注销
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 1.销毁session中用户登录的信息（或销毁session）
+        request.getSession().invalidate();
+        // 2.重定向到首页（或登录页面）
+        response.sendRedirect(request.getContextPath());
+
+    }
+
 
     protected void regist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("注册请求到registServlet了");
 
         // 获取请求对象
         request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
@@ -56,16 +78,23 @@ public class UserServlet extends BaseServlet {
 
 
 
+        // 获取Session中的验证码
+        String token = (String)request.getSession().getAttribute(KAPTCHA_SESSION_KEY);
+        // 删除Session中的验证码
+        request.getSession().removeAttribute(KAPTCHA_SESSION_KEY);
+
+
+
         // 2.检查验证码是否正确
-        if ("bnbnp".equalsIgnoreCase(code)) {
+        if (token != null && token.equalsIgnoreCase(code)) {
             // 3.检查用户名是否正确
             if (userService.existsUsername(username)) {
                 // 用户名已存在
                 System.out.println("用户名[" + username + "]已存在");
                 // 验证码错误 把账号 邮箱回显到注册栏
-                request.setAttribute("msg","用户名已存在");
-                request.setAttribute("username",username);
-                request.setAttribute("email",email);
+                request.setAttribute("msg", "用户名已存在");
+                request.setAttribute("username", username);
+                request.setAttribute("email", email);
 
                 // 跳转回注册页面
                 request.getRequestDispatcher("/pages/user/regist.jsp").forward(request, response);
@@ -78,9 +107,9 @@ public class UserServlet extends BaseServlet {
         } else {
             System.out.println("验证码[" + code + "]不正确");
             // 验证码错误 把账号 邮箱回显到注册栏
-            request.setAttribute("msg","验证码错误");
-            request.setAttribute("username",username);
-            request.setAttribute("email",email);
+            request.setAttribute("msg", "验证码错误");
+            request.setAttribute("username", username);
+            request.setAttribute("email", email);
 
 
             request.getRequestDispatcher("/pages/user/regist.jsp").forward(request, response);
