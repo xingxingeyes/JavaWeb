@@ -25,15 +25,15 @@ public abstract class BaseDao {
      * @return 如果返回-1，说明执行失败 <br/>返回其他表示影响的行数
      */
     public int update(String sql, Object... args) {
+
+        System.out.println("BaseDao程序在【"+Thread.currentThread().getName()+"】中");
         Connection conn = JdbcUtils.getConnection();
         try {
             return queryRunner.update(conn, sql, args);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } finally {
-            JdbcUtils.close(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return -1;
     }
 
     /**
@@ -51,10 +51,8 @@ public abstract class BaseDao {
             return queryRunner.query(conn, sql, new BeanHandler<T>(type), args);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            JdbcUtils.close(conn);
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     public <T> List<T> queryForList(Class<T> type, String sql, Object... args) {
@@ -63,10 +61,8 @@ public abstract class BaseDao {
             return queryRunner.query(conn, sql, new BeanListHandler<T>(type), args);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            JdbcUtils.close(conn);
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     /**
@@ -80,12 +76,10 @@ public abstract class BaseDao {
         Connection conn = JdbcUtils.getConnection();
         try {
             return queryRunner.query(conn, sql, new ScalarHandler(), args);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } finally {
-            JdbcUtils.close(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
 }

@@ -40,7 +40,7 @@ public class ClientBookServlet extends BaseServlet{
         page.setUrl("client/bookServlet?action=page");
         // 3.保存Page对象到Request域中
         request.setAttribute("page", page);
-        // 4.请求转发到 page/manager/book_manager.jsp页面
+        // 4.请求转发到 page/manager/index.jsp页面
         request.getRequestDispatcher("/pages/client/index.jsp").forward(request,response);
     }
 
@@ -71,7 +71,7 @@ public class ClientBookServlet extends BaseServlet{
         page.setUrl(sb.toString());
         // 3.保存Page对象到Request域中
         request.setAttribute("page", page);
-        // 4.请求转发到 page/manager/book_manager.jsp页面
+        // 4.请求转发到 page/manager/index.jsp页面
         request.getRequestDispatcher("/pages/client/index.jsp").forward(request,response);
     }
 

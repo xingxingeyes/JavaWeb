@@ -4,6 +4,7 @@ import com.kai.book.pojo.Cart;
 import com.kai.book.pojo.User;
 import com.kai.book.service.OrderService;
 import com.kai.book.service.impl.OrderServiceImpl;
+import com.kai.book.utils.JdbcUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +38,7 @@ public class OrderServlet extends BaseServlet {
             req.getRequestDispatcher("/pages/user/login.jsp").forward(req, resp);
             return;
         }
-
+        System.out.println("orderServlet程序在【"+Thread.currentThread().getName()+"】中");
         Integer userId = loginUser.getId();
         // 生成订单
         String orderId = orderService.createOrder(cart, userId);

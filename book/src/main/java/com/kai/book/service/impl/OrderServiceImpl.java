@@ -23,11 +23,15 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public String createOrder(Cart cart, Integer userId) {
+
+        System.out.println("OrderServiceImpl程序在【"+Thread.currentThread().getName()+"】中");
         // 订单号===唯一性
         String orderId = System.currentTimeMillis() + "" + userId;
 
+
         Order order = new Order(orderId, new Date(), cart.getTotalPrice(), 0, userId);
         orderDao.saveOrder(order);
+        // int a = 12/0;
         for (CartItem item : cart.getItems().values()) {
             OrderItem orderItem = new OrderItem(null, item.getName(), item.getCount(), item.getPrice(), item.getTotalPrice(), orderId);
             orderItemDao.saveOrderItem(orderItem);
