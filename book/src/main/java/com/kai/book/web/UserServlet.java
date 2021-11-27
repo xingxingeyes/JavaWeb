@@ -1,5 +1,6 @@
 package com.kai.book.web;
 
+import com.google.gson.Gson;
 import com.kai.book.pojo.User;
 import com.kai.book.service.UserService;
 import com.kai.book.service.impl.UserServiceImpl;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 
 import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
 
@@ -77,12 +79,10 @@ public class UserServlet extends BaseServlet {
         User user = WebUtils.copyParamToBean(request.getParameterMap(), new User());
 
 
-
         // 获取Session中的验证码
-        String token = (String)request.getSession().getAttribute(KAPTCHA_SESSION_KEY);
+        String token = (String) request.getSession().getAttribute(KAPTCHA_SESSION_KEY);
         // 删除Session中的验证码
         request.getSession().removeAttribute(KAPTCHA_SESSION_KEY);
-
 
 
         // 2.检查验证码是否正确
@@ -117,4 +117,17 @@ public class UserServlet extends BaseServlet {
         }
     }
 
+    protected void ajaxExistsUsername(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String username = request.getParameter("username");
+        boolean existsUsername = userService.existsUsername(username);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("existsUsername", existsUsername);
+        Gson gson = new Gson();
+        String jsonMap = gson.toJson(map);
+        response.getWriter().write(jsonMap);
+    }
 }
+
+
+

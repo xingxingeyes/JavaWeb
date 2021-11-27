@@ -1,4 +1,4 @@
-package com.kai.book.web;
+package com.example.day16_json_ajax_i18n.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,12 +20,9 @@ public abstract class BaseServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
-
         String action = request.getParameter("action");
-
         try {
             //  获取action业务鉴别字符串 获取响应的业务 方法反射对象
             Method method = this.getClass().getDeclaredMethod(action, HttpServletRequest.class, HttpServletResponse.class);
